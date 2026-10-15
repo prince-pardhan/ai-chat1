@@ -1,0 +1,168 @@
+{
+  "users": [
+    {
+      "id": "user_demo_101",
+      "name": "Demo Explorer",
+      "email": "demo@aichatpro.com",
+      "passwordHash": "$2b$10$AgewLwuu5K7ZCM.tQOZituya74Jp11uEgThAQv4y0/Ak.bxRcEUVe",
+      "authProvider": "local",
+      "profileImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-10-15T07:06:25.375Z"
+    },
+    {
+      "id": "user_guest_fmxhw15",
+      "name": "Guest User #2523",
+      "email": "guest_2523@aichatpro.local",
+      "passwordHash": "",
+      "authProvider": "local",
+      "profileImage": "https://api.dicebear.com/7.x/bottts/svg?seed=guest_2523",
+      "createdAt": "2026-10-15T07:06:32.611Z"
+    },
+    {
+      "id": "user_guest_j3e1stu",
+      "name": "Guest User #4051",
+      "email": "guest_4051@aichatpro.local",
+      "passwordHash": "",
+      "authProvider": "local",
+      "profileImage": "https://api.dicebear.com/7.x/bottts/svg?seed=guest_4051",
+      "createdAt": "2026-10-15T07:07:53.824Z"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv_l5ufrwuzqmv973z91",
+      "userId": "user_guest_fmxhw15",
+      "title": "Hello in Hinglish say 1 senten",
+      "createdAt": "2026-10-15T07:06:41.077Z",
+      "updatedAt": "2026-10-15T07:06:48.100Z"
+    },
+    {
+      "id": "conv_2m5k6imonmv975jhh",
+      "userId": "user_guest_j3e1stu",
+      "title": "New Chat",
+      "createdAt": "2026-10-15T07:07:53.957Z",
+      "updatedAt": "2026-10-15T07:08:55.146Z"
+    },
+    {
+      "id": "conv_avrr3vbv1mv9771j4",
+      "userId": "user_guest_j3e1stu",
+      "title": "Compare REST GraphQL and tRPC ",
+      "createdAt": "2026-10-15T07:09:04.000Z",
+      "updatedAt": "2026-10-15T07:10:36.510Z"
+    },
+    {
+      "id": "conv_j9ea5mxhtmv979k7q",
+      "userId": "user_guest_fmxhw15",
+      "title": "New Chat",
+      "createdAt": "2026-10-15T07:11:01.526Z",
+      "updatedAt": "2026-10-15T07:11:05.023Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg_j6vbcox85mv973z92",
+      "conversationId": "conv_l5ufrwuzqmv973z91",
+      "role": "user",
+      "content": "Hello in Hinglish, say 1 sentence introducing AI Chat Pro",
+      "createdAt": "2026-10-15T07:06:41.078Z"
+    },
+    {
+      "id": "msg_2u432itwdmv9742hh",
+      "conversationId": "conv_l5ufrwuzqmv973z91",
+      "role": "assistant",
+      "content": "Hello! Main hoon **AI Chat Pro**, aapka smart AI companion jahan aap *\"Ask Anything, Learn Everything\"* ke saath kisi bhi sawal ka aasan aur accurate jawab pa sakte hain!",
+      "createdAt": "2026-10-15T07:06:45.269Z"
+    },
+    {
+      "id": "msg_s0r96y69imv975jhi",
+      "conversationId": "conv_2m5k6imonmv975jhh",
+      "role": "user",
+      "content": "[Respond in Hindi / हिंदी]: hii",
+      "createdAt": "2026-10-15T07:07:53.958Z"
+    },
+    {
+      "id": "msg_dkb5x2ng6mv975xws",
+      "conversationId": "conv_2m5k6imonmv975jhh",
+      "role": "user",
+      "content": "hiiii",
+      "createdAt": "2026-10-15T07:08:12.652Z"
+    },
+    {
+      "id": "msg_j5uv0r929mv9768a8",
+      "conversationId": "conv_2m5k6imonmv975jhh",
+      "role": "user",
+      "content": "hellow",
+      "createdAt": "2026-10-15T07:08:26.096Z"
+    },
+    {
+      "id": "msg_zh43t5kjgmv976up7",
+      "conversationId": "conv_2m5k6imonmv975jhh",
+      "role": "assistant",
+      "content": "नमस्ते! मैं **AI Chat Pro** हूँ। \n\nआज मैं आपकी क्या मदद कर सकता हूँ? आप किसी भी विषय पर सवाल पूछ सकते हैं!",
+      "createdAt": "2026-10-15T07:08:55.146Z"
+    },
+    {
+      "id": "msg_i6ycswy0omv9771j5",
+      "conversationId": "conv_avrr3vbv1mv9771j4",
+      "role": "user",
+      "content": "Compare REST, GraphQL, and tRPC in a table highlighting speed, type-safety, and best use cases.",
+      "createdAt": "2026-10-15T07:09:04.001Z"
+    },
+    {
+      "id": "msg_qii03vvurmv977exb",
+      "conversationId": "conv_avrr3vbv1mv9771j4",
+      "role": "assistant",
+      "content": "Here is a direct comparison between **REST**, **GraphQL**, and **tRPC** focusing on performance, type-safety, and ideal applications:\n\n### Comparison Table\n\n| Feature / Metric | **REST** | **GraphQL** | **tRPC** |\n| :--- | :--- | :--- | :--- |\n| **Speed & Network Overhead** | • **Fast** execution on the server.<br>• Excellent built-in HTTP-level caching (CDN, browser).<br>• Risk of **over-fetching** or **under-fetching** data (multiple round trips). | • **Optimized payloads** (fetches only requested fields).<br>• Server overhead from parsing ASTs and resolving complex nested queries.<br>• HTTP-level caching is difficult (usually requires client-side caches like Apollo/Relay). | • **Very fast** and lightweight.<br>• Minimal serialization overhead (standard JSON/RPC over HTTP).<br>• Supports request batching out of the box.<br>• Standard HTTP caching possible with `GET` requests. |\n| **Type-Safety** | **Manual / Tool-dependent**<br>• Requires external tools (OpenAPI/Swagger) and codegen tools to generate client types.<br>• Types can fall out of sync easily without CI/CD validation. | **Schema-Driven**<br>• Strong schema definition language (SDL).<br>• Requires a build/code-generation step (e.g., GraphQL Code Generator) to create frontend types. | **Native End-to-End**<br>• 100% TypeScript inference.<br>• Types are shared directly from the backend to the frontend.<br>• **Zero code generation** required; changes reflect instantly in your IDE. |\n| **Data Fetching Paradigm** | Resource-based (`/users/:id/posts`) | Query-based (single endpoint `/graphql` with custom field selection) | Function-call/RPC-based (`trpc.user.getPosts.useQuery()`) |\n| **Language Ecosystem** | Language-agnostic (works with any language or client) | Language-agnostic (rich ecosystem across most languages) | **TypeScript only** (both frontend and backend must use TypeScript) |\n| **Learning Curve** | **Low** (industry standard, widely understood) | **High** (schemas, resolvers, N+1 problem, specialized caching) | **Low** (if already proficient in TypeScript) |\n| **Best Use Cases** | • Public-facing APIs and third-party integrations.<br>• Microservices architectures.<br>• Systems relying heavily on CDN/HTTP caching.<br>• Simple CRUD operations. | • Multi-platform apps (Web, iOS, Android) requiring different data shapes.<br>• Aggregating data from multiple microservices into a unified graph.<br>• Complex dashboards with deeply nested relations. | • Full-stack TypeScript applications (e.g., Next.js, Nuxt, T3 Stack).<br>• Internal SaaS apps and fast-moving startups.<br>• Monorepos where frontend and backend are maintained by the same team. |\n\n---\n\n### Quick Decision Guide\n\n* Choose **REST** if you are building a **public API**, need **native HTTP caching via CDNs**, or have diverse teams working in multiple programming languages (e.g., Go backend, Swift iOS app).\n* Choose **GraphQL** if you have **multiple client platforms** with drastically different data requirements or need to aggregate multiple backend data sources into a single schema.\n* Choose **tRPC** if you are working within a **full-stack TypeScript monorepo** and want the fastest possible development velocity with zero schema drift.",
+      "createdAt": "2026-10-15T07:09:21.359Z"
+    },
+    {
+      "id": "msg_puaky0nmymv977wso",
+      "conversationId": "conv_avrr3vbv1mv9771j4",
+      "role": "user",
+      "content": "how are you",
+      "createdAt": "2026-10-15T07:09:44.520Z"
+    },
+    {
+      "id": "msg_d7a7sxdjumv978gwk",
+      "conversationId": "conv_avrr3vbv1mv9771j4",
+      "role": "user",
+      "content": "how are you",
+      "createdAt": "2026-10-15T07:10:10.580Z"
+    },
+    {
+      "id": "msg_1c9jq85a4mv978p91",
+      "conversationId": "conv_avrr3vbv1mv9771j4",
+      "role": "assistant",
+      "content": "I'm doing great, thank you for asking! I'm ready to help you with whatever you're working on today. \n\nHow can I assist you? Feel free to ask anything!",
+      "createdAt": "2026-10-15T07:10:21.397Z"
+    },
+    {
+      "id": "msg_7t8cyoa3qmv978vs1",
+      "conversationId": "conv_avrr3vbv1mv9771j4",
+      "role": "user",
+      "content": "hiii",
+      "createdAt": "2026-10-15T07:10:29.857Z"
+    },
+    {
+      "id": "msg_l1wtlff4rmv9790wu",
+      "conversationId": "conv_avrr3vbv1mv9771j4",
+      "role": "assistant",
+      "content": "Hiii! Great to see you. How's your day going, and what can I help you with today?",
+      "createdAt": "2026-10-15T07:10:36.510Z"
+    },
+    {
+      "id": "msg_q5m5rmyprmv979k7r",
+      "conversationId": "conv_j9ea5mxhtmv979k7q",
+      "role": "user",
+      "content": "Hello, please give me a quick 1-sentence tip on writing clean code.",
+      "createdAt": "2026-10-15T07:11:01.527Z"
+    },
+    {
+      "id": "msg_go1zruyw0mv979mwv",
+      "conversationId": "conv_j9ea5mxhtmv979k7q",
+      "role": "assistant",
+      "content": "Always prioritize **readability** over cleverness by using descriptive naming conventions and keeping your functions small, focused, and single-purpose.",
+      "createdAt": "2026-10-15T07:11:05.023Z"
+    }
+  ]
+}
