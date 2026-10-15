@@ -1,11 +1,13 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import { db, User } from './src/server/db.js';
+import { db } from './src/server/db.ts';
+import type { User } from './src/server/db.ts';
 import {
   getGeminiClient,
   hasApiKey,
@@ -13,7 +15,7 @@ import {
   generateChatTitle,
   streamWithFallback,
   formatFriendlyErrorMessage,
-} from './src/server/gemini.js';
+} from './src/server/gemini.ts';
 
 dotenv.config();
 

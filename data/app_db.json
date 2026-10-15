@@ -44,6 +44,24 @@
       "authProvider": "local",
       "profileImage": "https://api.dicebear.com/7.x/bottts/svg?seed=test_guest_instant",
       "createdAt": "2026-10-15T07:51:51.872Z"
+    },
+    {
+      "id": "user_guest_o8vcbyl",
+      "name": "Guest Explorer",
+      "email": "user_guest_o8vcbyl@aichatpro.local",
+      "passwordHash": "",
+      "authProvider": "local",
+      "profileImage": "https://api.dicebear.com/7.x/bottts/svg?seed=user_guest_o8vcbyl",
+      "createdAt": "2026-10-15T07:55:36.237Z"
+    },
+    {
+      "id": "user_guest_mwrje4e",
+      "name": "Guest Explorer",
+      "email": "user_guest_mwrje4e@aichatpro.local",
+      "passwordHash": "",
+      "authProvider": "local",
+      "profileImage": "https://api.dicebear.com/7.x/bottts/svg?seed=user_guest_mwrje4e",
+      "createdAt": "2026-10-15T07:56:18.165Z"
     }
   ],
   "conversations": [
@@ -92,9 +110,23 @@
     {
       "id": "conv_ya4ixuiugmv98q2wx",
       "userId": "test_guest_instant",
-      "title": "New Chat",
+      "title": "Learning is lifelong growth",
       "createdAt": "2026-10-15T07:51:51.873Z",
-      "updatedAt": "2026-10-15T07:51:56.428Z"
+      "updatedAt": "2026-10-15T07:52:00.775Z"
+    },
+    {
+      "id": "conv_pwln4pup3mv98uw1a",
+      "userId": "user_guest_o8vcbyl",
+      "title": "Simple greeting message",
+      "createdAt": "2026-10-15T07:55:36.238Z",
+      "updatedAt": "2026-10-15T07:55:43.301Z"
+    },
+    {
+      "id": "conv_bdj0md1romv98vsdy",
+      "userId": "user_guest_mwrje4e",
+      "title": "New Chat",
+      "createdAt": "2026-10-15T07:56:18.166Z",
+      "updatedAt": "2026-10-15T07:56:21.520Z"
     }
   ],
   "messages": [
@@ -251,6 +283,34 @@
       "role": "assistant",
       "content": "Learning is the lifelong bridge between who you are today and who you aspire to become.",
       "createdAt": "2026-10-15T07:51:56.428Z"
+    },
+    {
+      "id": "msg_dcuvxwxzwmv98uw1b",
+      "conversationId": "conv_pwln4pup3mv98uw1a",
+      "role": "user",
+      "content": "hello",
+      "createdAt": "2026-10-15T07:55:36.239Z"
+    },
+    {
+      "id": "msg_xu6mo6s31mv98uyud",
+      "conversationId": "conv_pwln4pup3mv98uw1a",
+      "role": "assistant",
+      "content": "Hello! I am **AI Chat Pro**. \"Ask Anything. Learn Everything.\"\n\nHow can I help you today? Whether you have a technical question, need help with a project, or just want to learn something new, I'm here to assist you!",
+      "createdAt": "2026-10-15T07:55:39.877Z"
+    },
+    {
+      "id": "msg_2fn7ouyncmv98vsdy",
+      "conversationId": "conv_bdj0md1romv98vsdy",
+      "role": "user",
+      "content": "test",
+      "createdAt": "2026-10-15T07:56:18.166Z"
+    },
+    {
+      "id": "msg_p1fefl7jymv98vuz4",
+      "conversationId": "conv_bdj0md1romv98vsdy",
+      "role": "assistant",
+      "content": "Hello! I am **AI Chat Pro**. \"Ask Anything. Learn Everything.\"\n\nI am ready to assist you. Whether you have questions about programming, need help with a complex topic, or just want to chat in English, Hindi, or Hinglish, I'm here for you.\n\nHow can I help you today?\n\n---\n\n**Main aapki kis tarah se madad kar sakta hoon?**\n(How can I help you today?)\n\n**Main aapki poori madad karne ke liye taiyaar hoon! Bataiye kya sawaal hai aapka?**\n(I am ready to help you completely! Tell me, what is your question?)",
+      "createdAt": "2026-10-15T07:56:21.520Z"
     }
   ]
 }
