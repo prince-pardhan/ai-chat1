@@ -9,7 +9,7 @@ import { ChatInput } from './components/ChatInput';
 import { AuthModal } from './components/AuthModal';
 import { SettingsModal } from './components/SettingsModal';
 import { Conversation, Message } from './types/chat';
-import { safeParseJson, fetchWithRetry } from './utils/api';
+import { safeParseJson, fetchWithRetry, getStableGuestId } from './utils/api';
 
 function ChatApp() {
   const { user, token, hasGeminiKey, logout, loginAsGuest } = useAuth();
@@ -34,6 +34,7 @@ function ChatApp() {
   const getAuthHeaders = () => {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
+      'X-Guest-Id': getStableGuestId(),
     };
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
@@ -142,21 +143,8 @@ function ChatApp() {
   const handleSendMessage = async (promptText: string) => {
     if (!promptText.trim() || isStreaming) return;
 
-    // Ensure session exists: if user is not authenticated, seamlessly sign in as guest!
-    let activeToken = token;
-    if (!activeToken && !user) {
-      let guestRes = await loginAsGuest();
-      if (!guestRes.success) {
-        // Auto-retry once in case server was warming up
-        await new Promise((r) => setTimeout(r, 700));
-        guestRes = await loginAsGuest();
-      }
-      if (!guestRes.success) {
-        setIsAuthModalOpen(true);
-        return;
-      }
-      activeToken = localStorage.getItem('aichatpro_token');
-    }
+    const activeToken = token || localStorage.getItem('aichatpro_token');
+    const guestId = getStableGuestId();
 
     const optimisticUserMsg: Message = {
       id: 'msg_temp_' + Date.now(),
@@ -176,8 +164,10 @@ function ChatApp() {
     try {
       const res = await fetch('/api/chat/stream', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          'X-Guest-Id': guestId,
           ...(activeToken ? { Authorization: `Bearer ${activeToken}` } : {}),
         },
         body: JSON.stringify({

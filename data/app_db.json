@@ -35,6 +35,15 @@
       "authProvider": "local",
       "profileImage": "https://api.dicebear.com/7.x/bottts/svg?seed=guest_2187",
       "createdAt": "2026-10-15T07:44:27.128Z"
+    },
+    {
+      "id": "test_guest_instant",
+      "name": "Guest Explorer",
+      "email": "test_guest_instant@aichatpro.local",
+      "passwordHash": "",
+      "authProvider": "local",
+      "profileImage": "https://api.dicebear.com/7.x/bottts/svg?seed=test_guest_instant",
+      "createdAt": "2026-10-15T07:51:51.872Z"
     }
   ],
   "conversations": [
@@ -76,9 +85,16 @@
     {
       "id": "conv_x9j1ny401mv98gqyx",
       "userId": "user_guest_t1fyheu",
-      "title": "New Chat",
+      "title": "Greeting in Hindi English",
       "createdAt": "2026-10-15T07:44:36.489Z",
-      "updatedAt": "2026-10-15T07:44:40.587Z"
+      "updatedAt": "2026-10-15T07:44:41.517Z"
+    },
+    {
+      "id": "conv_ya4ixuiugmv98q2wx",
+      "userId": "test_guest_instant",
+      "title": "New Chat",
+      "createdAt": "2026-10-15T07:51:51.873Z",
+      "updatedAt": "2026-10-15T07:51:56.428Z"
     }
   ],
   "messages": [
@@ -221,6 +237,20 @@
       "role": "assistant",
       "content": "Hello! Namaste (नमस्ते)! \n\nI am **AI Chat Pro**, your assistant. How can I help you learn or achieve something today?\n\n---\n\nनमस्ते! मैं **AI Chat Pro** हूँ, आपका सहायक। आज मैं आपकी किस प्रकार मदद कर सकता हूँ?",
       "createdAt": "2026-10-15T07:44:40.587Z"
+    },
+    {
+      "id": "msg_tnca18169mv98q2wy",
+      "conversationId": "conv_ya4ixuiugmv98q2wx",
+      "role": "user",
+      "content": "Say 1 short sentence about learning",
+      "createdAt": "2026-10-15T07:51:51.874Z"
+    },
+    {
+      "id": "msg_butdkwq6amv98q6fg",
+      "conversationId": "conv_ya4ixuiugmv98q2wx",
+      "role": "assistant",
+      "content": "Learning is the lifelong bridge between who you are today and who you aspire to become.",
+      "createdAt": "2026-10-15T07:51:56.428Z"
     }
   ]
 }

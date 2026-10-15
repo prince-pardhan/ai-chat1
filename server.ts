@@ -50,23 +50,56 @@ const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction): vo
     }
   }
 
-  if (!token) {
-    res.status(401).json({ error: 'Unauthorized: Please log in to continue.' });
-    return;
+  // Check guest ID passed from client
+  const guestHeaderId = (req.headers['x-guest-id'] as string) || '';
+
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
+      const user = db.getUserById(decoded.userId);
+      if (user) {
+        req.user = user;
+        return next();
+      }
+    } catch (err) {
+      // Token invalid or expired, gracefully fall back to guest
+    }
   }
 
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-    const user = db.getUserById(decoded.userId);
-    if (!user) {
-      res.status(401).json({ error: 'User account not found.' });
-      return;
+  // If a guest header ID is provided, retrieve or register the guest
+  const targetGuestId = guestHeaderId || (token && token.startsWith('guest_') ? token : null);
+  if (targetGuestId) {
+    let guestUser = db.getUserById(targetGuestId);
+    if (!guestUser) {
+      guestUser = {
+        id: targetGuestId,
+        name: 'Guest Explorer',
+        email: `${targetGuestId}@aichatpro.local`,
+        passwordHash: '',
+        authProvider: 'local',
+        profileImage: `https://api.dicebear.com/7.x/bottts/svg?seed=${targetGuestId}`,
+        createdAt: new Date().toISOString(),
+      };
+      db.createUser(guestUser);
     }
-    req.user = user;
-    next();
-  } catch (err) {
-    res.status(401).json({ error: 'Invalid or expired session. Please log in again.' });
+    req.user = guestUser;
+    return next();
   }
+
+  // Automatic guest session if completely unauthenticated
+  const autoGuestId = 'user_guest_' + Math.random().toString(36).substring(2, 9);
+  const autoGuest: User = {
+    id: autoGuestId,
+    name: 'Guest Explorer',
+    email: `${autoGuestId}@aichatpro.local`,
+    passwordHash: '',
+    authProvider: 'local',
+    profileImage: `https://api.dicebear.com/7.x/bottts/svg?seed=${autoGuestId}`,
+    createdAt: new Date().toISOString(),
+  };
+  db.createUser(autoGuest);
+  req.user = autoGuest;
+  next();
 };
 
 function issueAuthToken(res: Response, user: User) {
