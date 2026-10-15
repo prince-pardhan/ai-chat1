@@ -9,7 +9,7 @@ import { ChatInput } from './components/ChatInput';
 import { AuthModal } from './components/AuthModal';
 import { SettingsModal } from './components/SettingsModal';
 import { Conversation, Message } from './types/chat';
-import { safeParseJson } from './utils/api';
+import { safeParseJson, fetchWithRetry } from './utils/api';
 
 function ChatApp() {
   const { user, token, hasGeminiKey, logout, loginAsGuest } = useAuth();
@@ -57,7 +57,7 @@ function ChatApp() {
       return;
     }
     try {
-      const res = await fetch('/api/conversations', {
+      const res = await fetchWithRetry('/api/conversations', {
         headers: getAuthHeaders(),
       });
       const parsed = await safeParseJson<{ conversations: Conversation[] }>(res);
@@ -95,7 +95,7 @@ function ChatApp() {
 
     setActiveConversationId(convId);
     try {
-      const res = await fetch(`/api/conversations/${convId}`, {
+      const res = await fetchWithRetry(`/api/conversations/${convId}`, {
         headers: getAuthHeaders(),
       });
       const parsed = await safeParseJson<{ conversation: Conversation; messages: Message[] }>(res);
@@ -145,7 +145,12 @@ function ChatApp() {
     // Ensure session exists: if user is not authenticated, seamlessly sign in as guest!
     let activeToken = token;
     if (!activeToken && !user) {
-      const guestRes = await loginAsGuest();
+      let guestRes = await loginAsGuest();
+      if (!guestRes.success) {
+        // Auto-retry once in case server was warming up
+        await new Promise((r) => setTimeout(r, 700));
+        guestRes = await loginAsGuest();
+      }
       if (!guestRes.success) {
         setIsAuthModalOpen(true);
         return;

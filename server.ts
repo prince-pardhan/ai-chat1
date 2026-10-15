@@ -21,11 +21,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+// Constraint: Port 3000 & iFrame: Dev server must run on port 3000
+const PORT = 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'ai-chat-pro-super-secret-key-2026';
 
 app.use(express.json({ limit: '5mb' }));
 app.use(cookieParser());
+
+// Disable caching on all API responses to ensure fresh state
+app.use('/api', (_req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  next();
+});
 
 // --- Authentication Middleware ---
 export interface AuthRequest extends Request {
