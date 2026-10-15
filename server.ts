@@ -533,6 +533,21 @@ app.post('/api/chat/edit', authMiddleware, async (req: AuthRequest, res: Respons
   res.json({ success: true, conversationId });
 });
 
+// Ensure any unhandled /api/* request ALWAYS returns JSON, never HTML from Vite
+app.all('/api/*', (req: Request, res: Response) => {
+  res.status(404).json({ error: `API endpoint not found: ${req.method} ${req.path}` });
+});
+
+// Global error handler for API requests
+app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
+  console.error('Unhandled server error:', err);
+  if (req.path.startsWith('/api')) {
+    res.status(500).json({ error: err?.message || 'Internal server error' });
+    return;
+  }
+  next(err);
+});
+
 // Setup Vite dev server or static files
 async function startServer() {
   if (process.env.NODE_ENV !== 'production') {

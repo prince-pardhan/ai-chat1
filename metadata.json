@@ -2,5 +2,7 @@
   "name": "AI Chat Pro",
   "description": "Ask Anything. Learn Everything. Professional ChatGPT-style AI chatbot with real-time streaming, conversation history, user authentication, and multi-language support.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

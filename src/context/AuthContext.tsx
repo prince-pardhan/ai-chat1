@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User } from '../types/chat';
+import { safeParseJson } from '../utils/api';
 
 interface AuthContextType {
   user: User | null;
@@ -40,10 +41,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const res = await fetch('/api/auth/me', {
         headers: getHeaders(),
       });
-      if (res.ok) {
-        const data = await res.json();
-        setUser(data.user);
-        setHasGeminiKey(Boolean(data.hasGeminiKey));
+      const parsed = await safeParseJson<{ user: User | null; hasGeminiKey?: boolean }>(res);
+      if (parsed.ok && parsed.data) {
+        setUser(parsed.data.user);
+        setHasGeminiKey(Boolean(parsed.data.hasGeminiKey));
       } else {
         setUser(null);
       }
@@ -65,13 +66,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        return { success: false, error: data.error || 'Failed to sign in' };
+      const parsed = await safeParseJson<{ user: User; token: string }>(res);
+      if (!parsed.ok || !parsed.data) {
+        return { success: false, error: parsed.error || 'Failed to sign in' };
       }
-      setUser(data.user);
-      setToken(data.token);
-      localStorage.setItem('aichatpro_token', data.token);
+      setUser(parsed.data.user);
+      setToken(parsed.data.token);
+      localStorage.setItem('aichatpro_token', parsed.data.token);
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err.message || 'Network error' };
@@ -85,13 +86,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        return { success: false, error: data.error || 'Failed to create account' };
+      const parsed = await safeParseJson<{ user: User; token: string }>(res);
+      if (!parsed.ok || !parsed.data) {
+        return { success: false, error: parsed.error || 'Failed to create account' };
       }
-      setUser(data.user);
-      setToken(data.token);
-      localStorage.setItem('aichatpro_token', data.token);
+      setUser(parsed.data.user);
+      setToken(parsed.data.token);
+      localStorage.setItem('aichatpro_token', parsed.data.token);
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err.message || 'Network error' };
@@ -105,13 +106,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        return { success: false, error: data.error || 'Failed to sign in with Google' };
+      const parsed = await safeParseJson<{ user: User; token: string }>(res);
+      if (!parsed.ok || !parsed.data) {
+        return { success: false, error: parsed.error || 'Failed to sign in with Google' };
       }
-      setUser(data.user);
-      setToken(data.token);
-      localStorage.setItem('aichatpro_token', data.token);
+      setUser(parsed.data.user);
+      setToken(parsed.data.token);
+      localStorage.setItem('aichatpro_token', parsed.data.token);
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err.message || 'Network error' };
@@ -124,13 +125,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
-      const data = await res.json();
-      if (!res.ok) {
-        return { success: false, error: data.error || 'Failed to create guest session' };
+      const parsed = await safeParseJson<{ user: User; token: string }>(res);
+      if (!parsed.ok || !parsed.data) {
+        return { success: false, error: parsed.error || 'Failed to create guest session' };
       }
-      setUser(data.user);
-      setToken(data.token);
-      localStorage.setItem('aichatpro_token', data.token);
+      setUser(parsed.data.user);
+      setToken(parsed.data.token);
+      localStorage.setItem('aichatpro_token', parsed.data.token);
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err.message || 'Network error' };
@@ -156,11 +157,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         headers: getHeaders(),
         body: JSON.stringify(updates),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        return { success: false, error: data.error || 'Failed to update profile' };
+      const parsed = await safeParseJson<{ user: User }>(res);
+      if (!parsed.ok || !parsed.data) {
+        return { success: false, error: parsed.error || 'Failed to update profile' };
       }
-      setUser(data.user);
+      setUser(parsed.data.user);
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err.message || 'Network error' };
@@ -173,9 +174,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         method: 'DELETE',
         headers: getHeaders(),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        return { success: false, error: data.error || 'Failed to delete account' };
+      const parsed = await safeParseJson<{ success: boolean }>(res);
+      if (!parsed.ok) {
+        return { success: false, error: parsed.error || 'Failed to delete account' };
       }
       setUser(null);
       setToken(null);

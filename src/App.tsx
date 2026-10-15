@@ -9,6 +9,7 @@ import { ChatInput } from './components/ChatInput';
 import { AuthModal } from './components/AuthModal';
 import { SettingsModal } from './components/SettingsModal';
 import { Conversation, Message } from './types/chat';
+import { safeParseJson } from './utils/api';
 
 function ChatApp() {
   const { user, token, hasGeminiKey, logout, loginAsGuest } = useAuth();
@@ -59,9 +60,9 @@ function ChatApp() {
       const res = await fetch('/api/conversations', {
         headers: getAuthHeaders(),
       });
-      if (res.ok) {
-        const data = await res.json();
-        setConversations(data.conversations || []);
+      const parsed = await safeParseJson<{ conversations: Conversation[] }>(res);
+      if (parsed.ok && parsed.data) {
+        setConversations(parsed.data.conversations || []);
       }
     } catch (err) {
       console.error('Failed to load conversations:', err);
@@ -97,9 +98,9 @@ function ChatApp() {
       const res = await fetch(`/api/conversations/${convId}`, {
         headers: getAuthHeaders(),
       });
-      if (res.ok) {
-        const data = await res.json();
-        setMessages(data.messages || []);
+      const parsed = await safeParseJson<{ conversation: Conversation; messages: Message[] }>(res);
+      if (parsed.ok && parsed.data) {
+        setMessages(parsed.data.messages || []);
       }
     } catch (err) {
       console.error('Failed to fetch conversation details:', err);

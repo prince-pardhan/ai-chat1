@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Sparkles, Mail, Lock, User as UserIcon, ArrowRight, CheckCircle2, Shield, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { safeParseJson } from '../utils/api';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -103,13 +104,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
         });
-        const data = await res.json();
-        if (data.success) {
-          setResetMessage(data.message);
-          if (data.resetCode) setResetCode(data.resetCode);
+        const parsed = await safeParseJson<{ success: boolean; message?: string; resetCode?: string }>(res);
+        if (parsed.ok && parsed.data?.success) {
+          setResetMessage(parsed.data.message || 'Verification code sent.');
+          if (parsed.data.resetCode) setResetCode(parsed.data.resetCode);
           setForgotStep(2);
         } else {
-          setError(data.error || 'Error processing request.');
+          setError(parsed.error || 'Error processing request.');
         }
       } else {
         const res = await fetch('/api/auth/reset-password', {
@@ -117,13 +118,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, newPassword, resetCode }),
         });
-        const data = await res.json();
-        if (data.success) {
+        const parsed = await safeParseJson<{ success: boolean; message?: string }>(res);
+        if (parsed.ok && parsed.data?.success) {
           setResetMessage('Password updated successfully! Please sign in with your new password.');
           setMode('login');
           setForgotStep(1);
         } else {
-          setError(data.error || 'Error resetting password.');
+          setError(parsed.error || 'Error resetting password.');
         }
       }
     } catch (err: any) {
